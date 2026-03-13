@@ -3,26 +3,34 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Container } from "@/components/container";
 import { supabase } from "@/lib/supabase";
-import { verifySignedSession } from "@/lib/auth"; 
+import { verifySignedSession } from "@/lib/auth";
 
 export default async function AdminDashboardPage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_session")?.value;
 
-
+  // 1. Session Kontrolü
   if (!token || !verifySignedSession(token)) {
     redirect("/admin/login");
   }
 
-
+  // 2. Doğrudan Veritabanı Sorgusu
   const { data: posts, error } = await supabase
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
 
+  // 3. Hata Yakalama (Neden bağlanamadığımızı burada göreceğiz)
   if (error) {
-    console.error("Supabase Error:", error);
-    return <div className="text-red-500">Veritabanı hatası oluştu.</div>;
+    return (
+      <Container>
+        <div className="rounded-2xl border border-red-500 bg-red-50 p-6 text-red-700 dark:bg-red-950/20 dark:text-red-400">
+          <h2 className="text-lg font-bold">Veritabanı Hatası</h2>
+          <p className="mt-2 text-sm">{error.message}</p>
+          <p className="mt-1 text-xs opacity-75">Detay: {error.code}</p>
+        </div>
+      </Container>
+    );
   }
 
   const safePosts = posts ?? [];
@@ -34,7 +42,6 @@ export default async function AdminDashboardPage() {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">Admin</p>
           <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Dashboard</h1>
         </div>
-        
         <div className="flex gap-3">
           <form action="/api/admin/logout" method="post">
             <button type="submit" className="rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-950 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-300 dark:hover:text-zinc-50">
