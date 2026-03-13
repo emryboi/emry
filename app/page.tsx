@@ -6,7 +6,7 @@ export default async function Home() {
   // Verileri paralel çekmek performansı artırır
   const [latestPostsRes, movieRes] = await Promise.all([
     supabase.from("posts").select("*").order("createdAt", { ascending: false }).limit(3),
-    fetch(`https://api.themoviedb.org/3/tv/1402?api_key=${process.env.TMDB_API_KEY}`, { next: { revalidate: 86400 } })
+    fetch(`https://api.themoviedb.org/3/tv/61889?api_key=${process.env.TMDB_API_KEY}`, { next: { revalidate: 86400 } })
   ]);
 
   const posts = latestPostsRes.data ?? [];
@@ -61,7 +61,7 @@ export default async function Home() {
           {show.name} ({year})
         </p>
         <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-          {studio} • Disney+ ♡
+          {studio} ♡
         </p>
       </div>
 
