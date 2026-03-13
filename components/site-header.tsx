@@ -5,11 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/about", label: "Hakkımda" },
   { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/projects", label: "Projelerim" },
+  { href: "/contact", label: "İletişim" },
 ];
 
 export function SiteHeader() {

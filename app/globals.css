@@ -1,10 +1,38 @@
 @import "tailwindcss";
 
-:root {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    sans-serif;
+@layer base {
+  :root {
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    --accent-pink: #f472b6; 
+  }
+
+  body {
+    @apply min-h-screen bg-zinc-50 text-zinc-900 selection:bg-pink-200 selection:text-pink-900 dark:bg-zinc-950 dark:text-zinc-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-200 rounded-full hover:bg-pink-300 transition-colors;
+  }
 }
 
-body {
-  min-height: 100vh;
+@layer components {
+  a {
+    @apply transition-all duration-300;
+  }
+  
+  img {
+    @apply transition-opacity duration-500;
+  }
+}
+
+.aesthetic-link {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-pink-400 after:transition-all hover:after:w-full;
 }
