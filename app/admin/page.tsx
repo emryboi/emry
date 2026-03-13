@@ -14,10 +14,10 @@ export default async function AdminDashboardPage() {
   }
 
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/admin/posts`, {
-    headers: { Cookie: `admin_session=${token}` },
-    cache: "no-store",
-  });
+const res = await fetch(`/api/admin/posts`, {
+  headers: { Cookie: `admin_session=${token}` },
+  cache: "no-store",
+});
 
   if (!res.ok) {
     redirect("/admin/login");
