@@ -1,68 +1,46 @@
 import { Container } from "@/components/container";
+import Link from "next/link";
 
 export default function ContactPage() {
+  const socials = [
+    { name: "Instagram", href: "https://instagram.com/emryboii", label: "@emryboii" },
+    { name: "TikTok", href: "https://tiktok.com/@emryboi", label: "@emryboi" },
+    { name: "Discord", href: "https://discord.gg/emry", label: "Sunucuya Katıl" },
+  ];
+
   return (
     <Container>
-      <section className="space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          Contact
-        </h1>
-        <p className="max-w-2xl text-sm text-zinc-600 dark:text-zinc-400">
-          Reach out about collaborations, questions, or just to say hello.
-        </p>
-
-        <form className="mt-6 max-w-xl space-y-4">
-          <div className="space-y-1">
-            <label
-              htmlFor="name"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500"
-            >
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Your name"
-              className="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-300 dark:focus:ring-zinc-300"
-            />
-          </div>
-          <div className="space-y-1">
-            <label
-              htmlFor="email"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-300 dark:focus:ring-zinc-300"
-            />
-          </div>
-          <div className="space-y-1">
-            <label
-              htmlFor="message"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              placeholder="What would you like to talk about?"
-              className="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-300 dark:focus:ring-zinc-300"
-            />
-          </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-500">
-            Wire this form up to your favorite email provider or API endpoint.
+      <section className="mx-auto max-w-xl space-y-8">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight">İletişim</h1>
+          <p className="text-zinc-600 dark:text-zinc-400">
+            Benimle iş birliği yapmak, sorular sormak veya sadece selam vermek için aşağıdaki kanallardan ulaşabilirsin :3
           </p>
-        </form>
+        </div>
+
+        <div className="grid gap-4">
+          {socials.map((social) => (
+            <Link
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-zinc-900 hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60 dark:hover:border-zinc-400"
+            >
+              <span className="font-medium text-zinc-900 dark:text-zinc-100">{social.name}</span>
+              <span className="text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                {social.label}
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-center dark:border-zinc-700">
+          <p className="text-sm text-zinc-500 italic">
+            "En hızlı dönüşü Discord üzerinden yapabilirimm!!"
+          </p>
+        </div>
       </section>
     </Container>
   );
 }
-

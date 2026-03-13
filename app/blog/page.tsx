@@ -40,7 +40,7 @@ export default async function BlogPage({ searchParams }: Props) {
   const { data: posts, error, count } = await queryBuilder;
 
   if (error) {
-    console.error("Failed to load posts", error);
+    console.error("Yazılar yüklenirken hata oluştu:", error);
   }
 
   const total = count ?? 0;
@@ -53,22 +53,21 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <Container>
-      <section className="mb-8 space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+      <section className="mb-10 space-y-4">
+        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
           Blog
         </h1>
         <p className="max-w-2xl text-sm text-zinc-600 dark:text-zinc-400">
-          Thoughts on software engineering, product design, and building things
-          on the web.
+          Tamamıyla keyfime göre boş yaptığım bloglar :3
         </p>
         <form className="mt-4">
-          <label className="flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm shadow-sm focus-within:border-zinc-900 focus-within:ring-1 focus-within:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:focus-within:border-zinc-300 dark:focus-within:ring-zinc-300">
+          <label className="flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm shadow-sm focus-within:border-zinc-900 focus-within:ring-1 focus-within:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:focus-within:border-zinc-300 dark:focus-within:ring-zinc-300">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-400">
-              Search
+              Ara
             </span>
             <input
               name="q"
-              placeholder="Search posts..."
+              placeholder="Yazılarda ara..."
               defaultValue={query}
               className="flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-400 dark:text-zinc-100"
             />
@@ -79,26 +78,25 @@ export default async function BlogPage({ searchParams }: Props) {
       {safePosts.length === 0 ? (
         <p className="text-sm text-zinc-500">
           {query
-            ? "No posts match your search yet."
-            : "No posts published yet. Check back soon."}
+            ? "Arama kriterlerinle eşleşen yazı bulunamadı."
+            : "Henüz yayınlanmış bir yazı yok. Yakında görüşmek üzere!"}
         </p>
       ) : (
-        <ul className="grid gap-6 md:grid-cols-2">
+        <ul className="grid gap-6 sm:grid-cols-2">
           {safePosts.map((post) => (
             <li
               key={post.id}
-              className="group rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-900 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950/60 dark:hover:border-zinc-400"
+              className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-900 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950/60 dark:hover:border-zinc-400"
             >
               <Link href={`/blog/${post.slug}`}>
                 <p className="text-xs uppercase tracking-[0.18em] text-zinc-400">
-                  {/* Hata buradaydı, artık güvenli bir şekilde tarih objesine çeviriyoruz */}
-                  {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : "Date unknown"}
+                  {post.createdAt ? new Date(post.createdAt).toLocaleDateString("tr-TR") : "Tarih bilinmiyor"}
                 </p>
-                <h2 className="mt-2 line-clamp-2 text-base font-semibold tracking-tight text-zinc-900 group-hover:text-zinc-700 dark:text-zinc-50 dark:group-hover:text-zinc-200">
+                <h2 className="mt-2 text-lg font-semibold tracking-tight text-zinc-900 group-hover:text-zinc-700 dark:text-zinc-50 dark:group-hover:text-zinc-200">
                   {post.title}
                 </h2>
                 {post.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="mt-2 text-sm text-zinc-600 line-clamp-3 dark:text-zinc-400">
                     {post.excerpt}
                   </p>
                 )}
@@ -109,19 +107,19 @@ export default async function BlogPage({ searchParams }: Props) {
       )}
 
       {totalPages > 1 && (
-        <div className="mt-8 flex items-center justify-between gap-4 text-sm text-zinc-500">
+        <div className="mt-10 flex items-center justify-between gap-4 text-sm text-zinc-500">
           <div>
-            Page {currentPage} of {totalPages}
+            Sayfa {currentPage} / {totalPages}
           </div>
           <div className="flex gap-2">
             <PaginationLink
-              label="Previous"
+              label="Önceki"
               page={currentPage - 1}
               disabled={currentPage <= 1}
               query={query}
             />
             <PaginationLink
-              label="Next"
+              label="Sonraki"
               page={currentPage + 1}
               disabled={currentPage >= totalPages}
               query={query}
@@ -143,7 +141,7 @@ type PaginationLinkProps = {
 function PaginationLink({ label, page, disabled, query }: PaginationLinkProps) {
   if (disabled) {
     return (
-      <span className="cursor-not-allowed rounded-full border border-dashed border-zinc-300 px-3 py-1 text-xs text-zinc-400 dark:border-zinc-700 dark:text-zinc-500">
+      <span className="cursor-not-allowed rounded-full border border-dashed border-zinc-300 px-4 py-1.5 text-xs text-zinc-400 dark:border-zinc-700 dark:text-zinc-500">
         {label}
       </span>
     );
@@ -153,12 +151,12 @@ function PaginationLink({ label, page, disabled, query }: PaginationLinkProps) {
   if (page > 1) params.set("page", String(page));
   if (query.length > 0) params.set("q", query);
 
-  const href = params.toString().length > 0 ? `/blog?${params}` : "/blog";
+  const href = params.toString().length > 0 ? `/blog?${params.toString()}` : "/blog";
 
   return (
     <Link
       href={href}
-      className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-950 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-300 dark:hover:text-zinc-50"
+      className="rounded-full border border-zinc-300 px-4 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-950 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-300 dark:hover:text-zinc-50"
     >
       {label}
     </Link>
