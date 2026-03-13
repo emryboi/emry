@@ -5,22 +5,20 @@ import { AdminDeletePostButton } from "@/components/admin-delete-post-button";
 import { supabase } from "@/lib/supabase";
 
 type Props = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const id = Number(params.id);
-  if (!Number.isFinite(id)) {
-    notFound();
-  }
+
+  const { id } = await params;
+
 
   const { data: post, error } = await supabase
     .from("posts")
     .select("*")
-    .eq("id", id)
+    .eq("id", id) 
     .single();
+
 
   if (error || !post) {
     notFound();
