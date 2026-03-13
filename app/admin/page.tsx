@@ -9,18 +9,18 @@ export default async function AdminDashboardPage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_session")?.value;
 
-  // 1. Session Kontrolü
+
   if (!token || !verifySignedSession(token)) {
     redirect("/admin/login");
   }
 
-  // 2. Doğrudan Veritabanı Sorgusu
+
   const { data: posts, error } = await supabase
     .from("posts")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("createdAt", { ascending: false });
 
-  // 3. Hata Yakalama (Neden bağlanamadığımızı burada göreceğiz)
+
   if (error) {
     return (
       <Container>
