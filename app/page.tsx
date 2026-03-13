@@ -38,26 +38,39 @@ export default async function Home() {
       </section>
 
       {show && (
-        <section className="mb-20 p-8 rounded-3xl border border-pink-100 bg-pink-50/50 dark:border-zinc-800 dark:bg-zinc-900/30">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <span className="text-pink-400">✧</span>
-              <h3 className="font-medium text-pink-900 dark:text-pink-200">bu ara buna sardım .ᐟ</h3>
-            </div>
-            <span className="text-xs text-zinc-400 font-mono">꒰ ᧔ෆ᧓ ꒱</span>
-          </div>
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-zinc-950/50 border border-pink-100 dark:border-zinc-800">
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-pink-100 text-pink-600 dark:bg-pink-950/30 dark:text-pink-500 font-bold">
-              D+
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{show.name} ({year})</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{studio} • Disney+ ♡</p>
-            </div>
-            <div className="text-xl">(˶˃𐃷˂˶)</div>
-          </div>
-        </section>
-      )}
+  <section className="mb-20 p-8 rounded-3xl border border-pink-100 bg-pink-50/50 dark:border-zinc-800 dark:bg-zinc-900/30">
+    <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-2">
+        <span className="text-pink-400">✧</span>
+        <h3 className="font-medium text-pink-900 dark:text-pink-200">bu ara buna sardım .ᐟ</h3>
+      </div>
+      <span className="text-xs text-zinc-400 font-mono">꒰ ᧔ෆ᧓ ꒱</span>
+    </div>
+
+    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-zinc-950/50 border border-pink-100 dark:border-zinc-800">
+      <div className="w-16 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm border border-zinc-100 dark:border-zinc-800">
+        <img 
+          src={`https://image.tmdb.org/t/p/w200${show.poster_path}`} 
+          alt={show.name} 
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="flex-1">
+        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+          {show.name} ({year})
+        </p>
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+          {studio} • Disney+ ♡
+        </p>
+      </div>
+
+      <div className="text-xl">
+        (˶˃𐃷˂˶)
+      </div>
+    </div>
+  </section>
+)}
 
       {/* İçerik Bölümü */}
       <section className="grid md:grid-cols-2 gap-12">
