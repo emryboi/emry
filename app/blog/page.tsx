@@ -58,7 +58,7 @@ export default async function BlogPage({ searchParams }: Props) {
           Blog
         </h1>
         <p className="max-w-2xl text-sm text-zinc-600 dark:text-zinc-400">
-          Tamamıyla keyfime göre boş yaptığım bloglar :3
+          Tamamıyla keyfime göre yazdıgım bloglar :3
         </p>
         <form className="mt-4">
           <label className="flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm shadow-sm focus-within:border-zinc-900 focus-within:ring-1 focus-within:ring-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:focus-within:border-zinc-300 dark:focus-within:ring-zinc-300">
