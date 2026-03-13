@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 import { verifySignedSession } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
+// 1. Tipi Promise olarak güncelliyoruz
 type Params = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 function getSessionFromRequest(request: Request) {
@@ -26,7 +25,10 @@ export async function PUT(request: Request, { params }: Params) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const id = Number(params.id);
+  // 2. await ile çözümlüyoruz
+  const { id: rawId } = await params;
+  const id = Number(rawId);
+  
   if (!Number.isFinite(id)) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
@@ -75,7 +77,10 @@ export async function DELETE(request: Request, { params }: Params) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const id = Number(params.id);
+  // 3. await ile çözümlüyoruz
+  const { id: rawId } = await params;
+  const id = Number(rawId);
+  
   if (!Number.isFinite(id)) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
@@ -91,4 +96,3 @@ export async function DELETE(request: Request, { params }: Params) {
 
   return NextResponse.json({ ok: true });
 }
-
